@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Software License Agreement (BSD License)
@@ -73,21 +73,21 @@ def manage_controller(controller_name, port_namespace, controller_type, command,
             response = start(port_namespace, package_path, module_name, class_name, controller_name, deps)
             if response.success: rospy.loginfo(response.reason)
             else: rospy.logerr(response.reason)
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             rospy.logerr('Service call failed: %s' % e)
     elif command.lower() == 'stop':
         try:
             response = stop(controller_name)
             if response.success: rospy.loginfo(response.reason)
             else: rospy.logerr(response.reason)
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             rospy.logerr('Service call failed: %s' % e)
     elif command.lower() == 'restart':
         try:
             response = restart(port_namespace, package_path, module_name, class_name, controller_name, deps)
             if response.success: rospy.loginfo(response.reason)
             else: rospy.logerr(response.reason)
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             rospy.logerr('Service call failed: %s' % e)
     else:
         rospy.logerr('Invalid command.')
@@ -144,4 +144,3 @@ if __name__ == '__main__':
             dependencies = joint_controllers[1:]
             manage_controller(controller_name, port_namespace, controller_type, command, dependencies, start_controller, stop_controller, restart_controller)
     except rospy.ROSInterruptException: pass
-
